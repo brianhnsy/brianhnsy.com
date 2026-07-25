@@ -1,5 +1,9 @@
 ---
+import PostList from "../components/PostList.astro";
 import Layout from "../layouts/BaseLayout.astro";
+import { getPosts } from "../utils/posts";
+
+const posts = getPosts().slice(0, 3);
 ---
 
 <Layout>
@@ -70,6 +74,21 @@ import Layout from "../layouts/BaseLayout.astro";
           </svg></a
         >
       </div>
+    </div>
+  </section>
+  <section class="animate-in mt-16 max-w-lg [animation-delay:450ms]" id="posts">
+    <div class="flex flex-col gap-8">
+      <h2 class="text-xl font-semibold">Posts</h2>
+      <div class="space-y-4">
+        <PostList posts={posts} />
+      </div>
+      <a
+        href="/posts/"
+        class="text-secondary hover:text-primary inline-flex w-fit items-center gap-1 text-sm transition-colors"
+      >
+        View all posts
+        <span aria-hidden="true">&rarr;</span>
+      </a>
     </div>
   </section>
 </Layout>
