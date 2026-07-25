@@ -1,0 +1,50 @@
+---
+const year = new Date().getFullYear();
+
+const links = [
+  {
+    label: "GitHub",
+    href: "https://github.com/brianhnsy",
+    external: true,
+  },
+  {
+    label: "X/Twitter",
+    href: "https://x.com/brianhnsy",
+    external: true,
+  },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/brianhnsy/",
+    external: true,
+  },
+];
+---
+
+<footer class="mt-24 border-t border-(--gray-a5) py-8" id="contact">
+  <div
+    class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"
+  >
+    <nav aria-label="Footer">
+      <ul class="-mx-3 flex flex-wrap items-center">
+        {
+          links.map(({ label, href, external }) => (
+            <li>
+              <a
+                href={href}
+                target={external ? "_blank" : undefined}
+                rel={external ? "noreferrer" : undefined}
+                class="text-secondary hover:text-primary inline-flex min-h-10 items-center px-3 text-sm font-medium transition-colors"
+              >
+                {label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <p class="text-tertiary text-sm whitespace-nowrap tabular-nums">
+      © {year} Brian Hennessy. All rights reserved.
+    </p>
+  </div>
+</footer>
