@@ -1,0 +1,71 @@
+---
+import "../styles/post-content.css";
+
+import BaseLayout from "./BaseLayout.astro";
+
+interface PostFrontmatter {
+  title: string;
+  pubDate: string | Date;
+  description?: string;
+  author?: string;
+}
+
+interface Props {
+  frontmatter: PostFrontmatter;
+}
+
+const { frontmatter } = Astro.props;
+const publishedDate = new Date(frontmatter.pubDate);
+const formattedDate = new Intl.DateTimeFormat("en-IE", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+}).format(publishedDate);
+---
+
+<BaseLayout
+  title={`${frontmatter.title} — Brian Hennessy`}
+  description={frontmatter.description}
+>
+  <article class="animate-in mt-16 pb-16">
+    <header class="mb-12">
+      <a
+        href="/posts/"
+        class="text-secondary hover:text-primary mb-6 inline-flex items-center gap-1 text-sm transition-colors"
+      >
+        <span aria-hidden="true">&larr;</span>
+        All posts
+      </a>
+
+      <h1
+        class="text-primary text-3xl font-semibold tracking-tight text-pretty"
+      >
+        {frontmatter.title}
+      </h1>
+
+      {
+        frontmatter.description && (
+          <p class="text-secondary mt-3 max-w-xl text-lg">
+            {frontmatter.description}
+          </p>
+        )
+      }
+
+      <div class="text-tertiary mt-4 flex items-center gap-2 text-sm">
+        <time datetime={publishedDate.toISOString()}>{formattedDate}</time>
+        {
+          frontmatter.author && (
+            <>
+              <span aria-hidden="true">&middot;</span>
+              <span>{frontmatter.author}</span>
+            </>
+          )
+        }
+      </div>
+    </header>
+
+    <div class="post-content">
+      <slot />
+    </div>
+  </article>
+</BaseLayout>
