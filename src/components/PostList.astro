@@ -1,0 +1,45 @@
+---
+import type { PostSummary } from "../utils/posts";
+
+interface Props {
+  posts: PostSummary[];
+  showDates?: boolean;
+}
+
+const { posts, showDates = false } = Astro.props;
+const dateFormatter = new Intl.DateTimeFormat("en-IE", {
+  day: "numeric",
+  month: "short",
+  year: "numeric",
+});
+---
+
+<ul class="-mx-4 -my-3 flex flex-col gap-1">
+  {
+    posts.map((post) => (
+      <li>
+        <a
+          href={post.url}
+          class="hover:bg-surface block rounded-md px-4 py-3 no-underline transition-all duration-400"
+        >
+          <article>
+            <div class="flex items-baseline justify-between gap-4">
+              <h2 class="leading-tight font-medium text-pretty">
+                {post.title}
+              </h2>
+              {showDates && (
+                <time
+                  datetime={post.pubDate.toISOString()}
+                  class="text-tertiary shrink-0 text-sm"
+                >
+                  {dateFormatter.format(post.pubDate)}
+                </time>
+              )}
+            </div>
+            <p class="text-secondary mt-1 line-clamp-2">{post.description}</p>
+          </article>
+        </a>
+      </li>
+    ))
+  }
+</ul>
