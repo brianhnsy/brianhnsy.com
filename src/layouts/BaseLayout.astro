@@ -2,6 +2,16 @@
 import "../styles/global.css";
 
 import Header from "../components/header.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Brian Hennessy",
+  description = "Ireland based Technical Support Executive and a Content Creator, sharing insights on product and technology advancements.",
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -9,14 +19,11 @@ import Header from "../components/header.astro";
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta
-      name="description"
-      content="Ireland based Technical Support Executive and a Content Creator, sharing insights on product and technology advancements."
-    />
+    <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/logo/favicon.svg" />
     <link rel="icon" href="/logo/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
-    <title>Brian Hennessy</title>
+    <title>{title}</title>
   </head>
   <body class="font-sans">
     <div class="mx-auto max-w-[700px] px-4 md:px-6">
